@@ -1,4 +1,4 @@
-.{
+{
   "name": "licorera",
   "version": "1.0.0",
   "description": "Tienda virtual de licores seleccionados",
@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node back/server.js",
     "dev": "SET NODE_ENV=DEVELOPMENT& nodemon back/server",
-    "prod": "SET NODE_ENV=PRODUCTION& nodemon back/server "
+    "prod": "SET NODE_ENV=PRODUCTION& nodemon back/server"
   },
   "repository": {
     "type": "git",
