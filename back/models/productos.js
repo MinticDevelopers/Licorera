@@ -76,7 +76,7 @@ const productsSchema= mongoose.Schema({
             },
             comentario:{
                 type:String,
-                required:[true, "Inserte su comentario"]
+                required:true
             }
 
         }
