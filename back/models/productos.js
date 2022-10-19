@@ -1,29 +1,27 @@
-const mongoose = require ("mongoose")
+const mongoose=require("mongoose")
 
-
-const productsSchema= mongoose.Schema({
+const productosSchema=mongoose.Schema({
     nombre:{
-        type :String,
-        required:[true,"Por favor registre el nombre del producto."],//Se requiere obligatoriamente el ingreso del nombre del producto
-        trim: true,//el trim elimina los espacios en blanco al principio y al final si llegasen a existir
-        maxLength: [120, "El nombre del producto no debe exceder los 120 caracteres. "]
-    }, 
+        type:String,
+        required:[true,"Por favor ingresa el nombre del producto a registrar."],
+        trim:true,
+        maxLength:[120,"El nombre del producto no debe exceder los 120 caracteres."]
+    },
     precio:{
-        type:Number,
-        required: [true,"Por favor registre el precio del producto."],
-        //los número no tienen espacios en blanco por lo cual no se hace necesario el trim
-        maxLength:[8, "El precio del producto unitario no debe exceder el monto de 99'999.999"],
-        default:0.0
+        type: Number,
+        required:[true,"Por favor ingrese el precio del producto a registrar."],
+        maxLength:[8, "El precio del producto no puede estar por encima de 99'999.999"],
+        default: 0.0
     },
     descripcion:{
-        type: String,
-        required: [true,"Por favor ingrese la descripción del producto."]
+      type:String,
+      required:[true,"Por favor ingrese una descripción del producto."]
     },
-    Calificación:{
-        type:Number,
+    calificacion:{
+        type: Number,
         default: 0
     },
-    Imagen:[
+    imagen:[
         {
             public_id:{
                 type:String,
@@ -35,34 +33,33 @@ const productsSchema= mongoose.Schema({
             }
         }
     ],
-
-    categoría:{
+    categoria:{
         type:String,
-        required:[true,"Por favor seleccione la categoría del producto." ],
+        required:[true,"Por favor seleccione la categoria del producto."],
         enum:{
             values:[
                 "Vinos",
                 "Licores",
                 "Tequilas",
                 "Coctelería",
-                "bebidas sin alcohol",
-                "Alimentos o Snacks"
+                "Cervecería",
+                "Bebidas sin alcohol"
             ]
         }
     },
     vendedor:{
-        type: String,
-        required:[true, "Por favor ingrese el vendedor del producto."]
+        type:String,
+        required:[true,"Por favor registre el vendedor del producto"]
     },
     inventario:{
-        type:Number,
-        required:[true,"Por favor registre el stock del producto."],
-        maxLength:[5,"La cantidad máxima del producto no puede exceder de 99999" ],
-        default: 0
+        type: Number,
+        required:[true, "Por favor registre el stock del producto"],
+        maxLength:[5,"Cantidad maxima del producto no puede sobrepasar 99999"],
+        default:0
     },
     numCalificaciones:{
         type:Number,
-        default: 0
+        default:0
     },
     opiniones:[
         {
@@ -78,13 +75,13 @@ const productsSchema= mongoose.Schema({
                 type:String,
                 required:true
             }
-
         }
     ],
-    fechacreacion:{
+    fechaCreacion:{
         type:Date,
         default:Date.now
     }
+
 })
 
-module.exports= mongoose.model("productos",productsSchema)
+module.exports=mongoose.model("productos",productosSchema)
