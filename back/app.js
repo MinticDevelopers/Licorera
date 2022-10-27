@@ -5,9 +5,11 @@ const app = express();
 app.use(express.json());
 
 // Se importa la ruta
-const productos = require("./routes/products")
+const productos= require("./routes/products")
+const clientes = require ("./routes/clients")
 
-app.use('/api', productos)
+app.use('/api',productos)
+app.use('/api',clientes)
 
 
 module.exports=app
