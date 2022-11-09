@@ -1,18 +1,19 @@
 import React, { Fragment, useEffect } from 'react'
+import MetaData from './layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../actions/productActions'
 import { Link } from 'react-router-dom'
-import { useAlert} from 'react-alert'
+import { useAlert } from 'react-alert'
 
 
 export const Home = () => {
 
     const { loading, productos, error } = useSelector(state => state.products)
-    const alert= useAlert();
+    const alert = useAlert();
 
     const dispatch = useDispatch();
     useEffect(() => {
-        if (error){
+        if (error) {
             return alert.error(error)
         }
         dispatch(getProducts());
@@ -21,9 +22,10 @@ export const Home = () => {
 
     return (
         <Fragment>
-            {loading ? <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>  : (
+            {loading ? <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> : (
 
                 <Fragment>
+                    <MetaData title="Novedades"></MetaData>
 
                     <h1 id="encabezado_productos">Últimos Productos</h1>
 
