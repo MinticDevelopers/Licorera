@@ -1,4 +1,4 @@
-const cliente = require ("../models/clientes")
+const cliente = require ("../models/auth")
 const fetch =(url)=>import('node-fetch').then(({default:fetch})=>fetch(url)); 
 
 
