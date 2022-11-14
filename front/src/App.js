@@ -6,7 +6,7 @@ import Home from './components/Home';
 import { ProductDetails } from './components/products/ProductDetails';
 //Router traido desde react-router-dom (no confundir con el de express)
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import { Dashboard } from './components/admin/Dashboard';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />}/>
             <Route path="/Home" element={<Home />}/>
             <Route path = "/producto/:id" element={<ProductDetails/>}/>
+            <Route path='/admin/dashboard' element={<Dashboard/>}/>
           </Routes>
         </div>
         <Footer />
