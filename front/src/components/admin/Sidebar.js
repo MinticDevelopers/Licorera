@@ -16,7 +16,7 @@ export const Sidebar = () => {
                         <a href='#productSubmenu' data-toggle="collapse" aria-expanded="false" className='dropdown-toggle'><i className='fa fa-product-hunt'></i>Productos</a>
                         <ul className='"collapse list-unstyled' id="productSubmenu">
                             <li>
-                                <Link to="/"><i className='fa fa-clipboard'> Lista de productos</i></Link>
+                                <Link to="/admin/listadoProductos"><i className='fa fa-clipboard'> Lista de productos</i></Link>
                             </li>
 
                             <li>
