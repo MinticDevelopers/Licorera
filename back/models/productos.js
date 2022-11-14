@@ -38,12 +38,13 @@ const productosSchema=mongoose.Schema({
         required:[true,"Por favor seleccione la categoria del producto."],
         enum:{
             values:[
-                "WHISKY",
+                "Whisky",
                 "Licores",
                 "Tequilas",
                 "Coctelería",
                 "Cervecería",
-                "Bebidas sin alcohol"
+                "Bebidas sin alcohol",
+                "Vino"
             ]
         }
     },

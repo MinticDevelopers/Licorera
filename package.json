@@ -4,9 +4,10 @@
   "description": "Tienda virtual de licores seleccionados",
   "main": "server.js",
   "scripts": {
-    "start": "node back/server.js",
-    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon back/server",
-    "prod": "SET NODE_ENV=PRODUCTION& nodemon back/server"
+    "install": "concurrently \" cd back && npm install \" \" cd front && npm install \"",
+    "start":"concurrently \" cd back && npm start \" \" cd front && npm start \"",
+    "start:back":"cd back && npm start",
+    "start:front":"cd front && npm start"
   },
   "repository": {
     "type": "git",
@@ -18,18 +19,7 @@
     "url": "https://github.com/MinticDevelopers/Licorera/issues"
   },
   "homepage": "https://github.com/MinticDevelopers/Licorera#readme",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.1",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.5",
-    "nodemailer": "^6.8.0",
-    "validator": "^13.7.0"
-  },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "concurrently": "^7.5.0"
   }
 }

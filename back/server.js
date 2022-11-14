@@ -1,9 +1,9 @@
-const app = require("./app")
+const app = require("./app") //Acá llamamos el objeto "app" del archivo "app.js"
 const connectDatabase = require("./config/Conexion_a_BD");
 
 //Establecer el archivo de configuración
 const dotenv = require("dotenv");
-dotenv.config({path:'back/config/config.env'})
+dotenv.config({path:'config/config.env'})
 
 //Configurar base de datos 
 
