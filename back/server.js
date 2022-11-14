@@ -1,4 +1,4 @@
-const app = require("./app")
+const app = require("./app") //Acá llamamos el objeto "app" del archivo "app.js"
 const connectDatabase = require("./config/Conexion_a_BD");
 
 //Establecer el archivo de configuración

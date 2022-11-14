@@ -1,5 +1,5 @@
-const express = require("express");
-const app = express();
+const express = require("express"); //Ya puedo utilizar métodos que vienen con esta clase
+const app = express(); //Creamos un objeto con las características de "express"
 
 // Establecemos que se van a usar archivos Json
 app.use(express.json());
@@ -12,4 +12,4 @@ app.use('/api',productos)
 app.use('/api',clientes)
 
 
-module.exports=app
+module.exports=app //Nos sirve para poder llamar este objeto desde otra parte

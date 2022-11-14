@@ -76,7 +76,7 @@ exports.updateProduct = async (req, res, next) => {
 
 //Eliminar un producto
 exports.deleteProduct = async (req, res, next) => {
-    // Se crea una variable modificable
+    // Se crea una variable NO modificable porque "product" no va a cambiar
     const product = await producto.findById(req.params.id)
 
     //Se verifica que el producto no existe para finalizar el proceso
