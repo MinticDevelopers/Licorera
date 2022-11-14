@@ -7,10 +7,11 @@ app.use(express.json());
 
 // Se importa la ruta
 const productos= require("./routes/products")
-const clientes = require ("./routes/clients")
+const usuarios = require("./routes/auth")
+
 
 app.use('/api',productos)
-app.use('/api',clientes)
+app.use('/api',usuarios)
 
 //Manejador de errores 
 app.use(errorMiddleware)
