@@ -4,10 +4,10 @@
   "description": "Tienda virtual de licores seleccionados",
   "main": "server.js",
   "scripts": {
-    "install": "concurrently \" cd back && npm install \" \" cd front && npm install \"",
-    "start":"concurrently \" cd back && npm start \" \" cd front && npm start \"",
-    "start:back":"cd back && npm start",
-    "start:front":"cd front && npm start"
+    "install:all": "concurrently \" cd back && npm install \" \" cd front && npm install \"",
+    "start": "concurrently \" cd back && npm start \" \" cd front && npm start \"",
+    "start:back": "cd back && npm start",
+    "start:front": "cd front && npm start"
   },
   "repository": {
     "type": "git",
