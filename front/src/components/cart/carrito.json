@@ -1,0 +1,36 @@
+{
+    "item": [
+        {
+            "_id": "6365ca74866ce464b313cbeb",
+            "nombre": "Whisky Buchanans Deluxe 12 Años Blended",
+            "precio": 153000,
+            "imagen": "./images/imagesProducts/Buchanans_Deluxe_Blended.png",
+            "inventario": 100,
+            "__v": 0
+        },
+        {
+            "_id": "6365cb1e866ce464b313cbee",
+            "nombre": "Whisky Old Parr 12 Años Blended",
+            "precio": 138000,
+            "imagen": "./images/imagesProducts/Old_Parr_12.png",
+            "inventario": 100,
+            "__v": 0
+        },
+        {
+            "_id": "6365cba2866ce464b313cbf4",
+            "nombre": "Whisky Johnnie Walker Black Label Blended",
+            "precio": 130100,
+            "imagen": "./images/imagesProducts/Johnnie_Walker_Black.png",
+            "inventario": 100,
+            "__v": 0
+        },
+        {
+            "_id": "6365cc2a866ce464b313cbf7",
+            "nombre": "Whisky Chivas Regal 18 Años",
+            "precio": 250990,
+            "imagen":  "./images/imagesProducts/Chivas_Regal_18.png",
+            "inventario": 100,
+            "__v": 0
+        }
+    ]
+}
