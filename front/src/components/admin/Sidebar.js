@@ -37,10 +37,10 @@ export const Sidebar = () => {
                         <Link to="/"><i className='fa fa-users'></i>Usuarios</Link>
                     </li>
 
-                      {/*botones de opinion*/}
+                    {/*botones de opinion*/}
 
-                      <li>
-                        <Link to = "/"><i className='fa fa-shopping-basket'></i>Opiniones</Link>
+                    <li>
+                        <Link to="/"><i className='fa fa-shopping-basket'></i>Opiniones</Link>
                     </li>
 
                 </ul>

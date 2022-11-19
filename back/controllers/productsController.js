@@ -3,9 +3,11 @@ const producto = require("../models/productos");//importación del schema produc
 const ErrorHandler = require("../utils/errorHandler");
 
 //Ver la lista de productos
-exports.getProducts = catchAsyncErrors (async (req, res, next) => {
-    const productos = await producto.find();
+exports.getProducts = catchAsyncErrors(async (req, res, next) => {
 
+    
+    const productos = await producto.find();
+    
     if (!productos) {
         return next(new ErrorHandler("Informacion no encontrada", 404))
     }
@@ -18,7 +20,7 @@ exports.getProducts = catchAsyncErrors (async (req, res, next) => {
 })
 
 //Ver un producto por ID
-exports.getProductById = catchAsyncErrors (async (req, res, next) => {
+exports.getProductById = catchAsyncErrors(async (req, res, next) => {
     const product = await producto.findById(req.params.id)
 
     if (!product) {
@@ -33,8 +35,9 @@ exports.getProductById = catchAsyncErrors (async (req, res, next) => {
 })
 
 
-//Crear nuevo producto /api/productos
-exports.newProduct = catchAsyncErrors (async (req, res, next) => {
+//Crear nuevo producto /api/producto/nuevo
+exports.newProduct = catchAsyncErrors(async (req, res, next) => {
+    req.body.user = req.user.id;
     const product = await producto.create(req.body);
 
     res.status(201).json({
@@ -44,7 +47,7 @@ exports.newProduct = catchAsyncErrors (async (req, res, next) => {
 })
 
 //Actualizar un producto
-exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
+exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     // Se crea una variable modificable
     let product = await producto.findById(req.params.id)
     //Se verifica que el producto no existe para finalizar el proceso
@@ -68,7 +71,7 @@ exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
 })
 
 //Eliminar un producto
-exports.deleteProduct = catchAsyncErrors (async (req, res, next) => {
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
     // Se crea una variable modificable
     const product = await producto.findById(req.params.id)
 

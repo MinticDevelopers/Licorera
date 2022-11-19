@@ -17,7 +17,7 @@ const NewProduct = () => {
                 <div className="col-12 col-md-10">
                     <Fragment>
                         <div className="wrapper my-5">
-                            <form className="shadow-lg"  encType='multipart/form-data'>
+                            <form className="shadow-lg" encType='multipart/form-data'>
                                 <h1 className="mb-4">Nuevo Producto</h1>
 
                                 <div className="form-group">
@@ -26,7 +26,7 @@ const NewProduct = () => {
                                         type="text"
                                         id="name_field"
                                         className="form-control"
-                                
+
                                     />
                                 </div>
 
@@ -36,7 +36,7 @@ const NewProduct = () => {
                                         type="text"
                                         id="price_field"
                                         className="form-control"
-                                        
+
                                     />
                                 </div>
 
@@ -66,7 +66,7 @@ const NewProduct = () => {
                                         type="text"
                                         id="seller_field"
                                         className="form-control"
-                                    
+
                                     />
                                 </div>
 
@@ -83,7 +83,7 @@ const NewProduct = () => {
                                         />
                                         <label className='custom-file-label' htmlFor='customFile'>
                                             Seleccione Imagen
-                                     </label>
+                                        </label>
                                     </div>
 
                                 </div>

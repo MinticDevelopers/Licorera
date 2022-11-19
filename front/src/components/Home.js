@@ -39,7 +39,7 @@ export const Home = () => {
                                         <img className='card-img-top mx-auto w-auto' src={producto.imagen[0].url} alt={producto.imagen[0].public_id}></img>
 
                                         <div className='card-body d-flex flex-column'>
-                                            <h5  id="titulo_producto"><Link to={`/producto/${producto._id}`} class="text-dark" >{producto.nombre} </Link></h5>
+                                            <h5 id="titulo_producto"><Link to={`/producto/${producto._id}`} class="text-dark" >{producto.nombre} </Link></h5>
                                             <div className='rating mt-auto'>
                                                 <div className='rating-outer'>
                                                     <div className='rating-inner' style={{ width: `${(producto.calificacion / 5) * 100}%` }}></div>

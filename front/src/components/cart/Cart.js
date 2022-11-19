@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
 
@@ -8,19 +8,19 @@ const Cart = () => {
 
     const increaseQty = () => {
         const contador = document.querySelector('.count')
-        const qty = contador.valueAsNumber+1;
+        const qty = contador.valueAsNumber + 1;
         setQuantity(qty)
-     }
-  
-     const decreaseQty = () => {
-      const contador = document.querySelector('.count')
-  
-      const qty = contador.valueAsNumber-1;
-      setQuantity(qty)
-   }
+    }
+
+    const decreaseQty = () => {
+        const contador = document.querySelector('.count')
+
+        const qty = contador.valueAsNumber - 1;
+        setQuantity(qty)
+    }
 
     //Json de ejemplo
-   let cartItems=[
+    let cartItems = [
         {
             "_id": "6365ca74866ce464b313cbeb",
             "nombre": "Whisky Buchanans Deluxe 12 Años Blended",
@@ -46,27 +46,27 @@ const Cart = () => {
             "_id": "6365cc2a866ce464b313cbf7",
             "nombre": "Whisky Chivas Regal 18 Años",
             "precio": 250990,
-            "imagen":  "./images/imagesProducts/Chivas_Regal_18.png",
+            "imagen": "./images/imagesProducts/Chivas_Regal_18.png",
             "inventario": 100,
         }
     ]
 
-cartItems = Array.from(cartItems);
+    cartItems = Array.from(cartItems);
 
     return (
         <Fragment>
             <MetaData title={'Your Cart'} />
-            
+
 
             {cartItems.length === 0 ? <h2 className="mt-5">Su carrito esta vacio</h2> : (
                 <Fragment>
-                    
+
                     <h4 className="mt-5">Su Carrito: <b>{cartItems.length} items</b></h4>
 
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-lg-8">
 
-                        {cartItems && cartItems.map (item => (
+                            {cartItems && cartItems.map(item => (
                                 <Fragment>
                                     <hr />
 
@@ -103,8 +103,8 @@ cartItems = Array.from(cartItems);
                                     </div>
                                     <hr />
                                 </Fragment>
-                            
-                        ))}
+
+                            ))}
                         </div>
 
                         <div className="col-12 col-lg-3 my-4">

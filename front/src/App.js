@@ -18,17 +18,17 @@ function App() {
         <Header />
         <div className='container container-fluid'>
           <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/Home" element={<Home />}/>
-            <Route path = "/producto/:id" element={<ProductDetails/>}/>
-            <Route path='/dashboard' element={<Dashboard/>}/>
-            <Route path='/listadoProductos' element={<ProductsList/>}/>
-            <Route path="/nuevoProducto" element={<NewProduct />}/>
-            <Route path="/carrito" element={<Cart />}/>
+            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/producto/:id" element={<ProductDetails />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/listadoProductos' element={<ProductsList />} />
+            <Route path="/nuevoProducto" element={<NewProduct />} />
+            <Route path="/carrito" element={<Cart />} />
           </Routes>
         </div>
         <Footer />
-    </div>
+      </div>
     </Router>
   );
 }

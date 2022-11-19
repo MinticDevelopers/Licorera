@@ -30,19 +30,19 @@ export const getProducts = () => async (dispatch) => {
 
 
 //DETALLE DEL PRODUCTO
-export const getProductDetails = (id) => async(dispatch)=>{
+export const getProductDetails = (id) => async (dispatch) => {
     try {
-        dispatch({type: PRODUCT_DETAILS_REQUEST})
+        dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-        const {data} = await axios.get(`/api/producto/${id}`)
+        const { data } = await axios.get(`/api/producto/${id}`)
 
         dispatch({
-            type:PRODUCT_DETAILS_SUCCESS,
+            type: PRODUCT_DETAILS_SUCCESS,
             payload: data
         })
-    }catch (error){
+    } catch (error) {
         dispatch({
-            type:PRODUCT_DETAILS_FAIL,
+            type: PRODUCT_DETAILS_FAIL,
             payload: error.response.data.message
         })
     }
