@@ -103,21 +103,21 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
 //Resetear la contraseña
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
-    
+
     //Hash el token que llego con la URl
     const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex")
-    
+
     //Buscamos al usuario al que le vamos a resetear la contraseña
     const user = await User.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
     })
-    
+
     //Consultamos el usuario en la base de datos
     if (!user) {
         return next(new ErrorHandler("El token es invalido o ya expiró", 400))
     }
-    
+
     //Verificamos si las contraseñas son iguales
     if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler("Contraseñas no coinciden", 400))
@@ -131,3 +131,122 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     await user.save();
     tokenEnviado(user, 200, res)
 })
+
+//Ver perfil de usuario (Usuario que esta logueado)
+exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+
+//Update Contraseña (usuario logueado)
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password");
+
+    //Revisamos si la contraseña vieja es igual a la nueva
+    const samePassword = await user.compararPass(req.body.oldPassword)
+
+    if (!samePassword) {
+        return next(new ErrorHandler("La contraseña actual no es correcta", 401))
+    }
+
+    user.password = req.body.newPassword;
+    await user.save();
+
+    tokenEnviado(user, 200, res)
+})
+
+//Update perfil de usuario (logueado)
+exports.updateProfile= catchAsyncErrors(async(req,res,next)=>{
+    //Actualizar el email por user a decisiòn de cada uno
+    const newUserData ={
+        nombre: req.body.nombre,
+        email: req.body.email
+    }
+
+    //update Avatar: pendiente
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new:true,
+        runValidators:true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
+
+
+//Servicios controladores Administradores
+
+//Ver los usuarios registrados
+exports.getAllUsers = catchAsyncErrors(async(req, res, next)=>{
+    const users = await User.find();
+
+    res.status(200).json({
+        success:true,
+        users
+    })
+})
+
+//Ver el detalle de 1 usuario
+exports.getUserDetails= catchAsyncErrors(async(req, res, next)=>{
+    const user= await User.findById(req.params.id);
+
+    if (!user){
+        return next(new ErrorHandler(`No se ha encontrado un usuario registrado con el id: ${req.params.id}`))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//Actualizar perfil de usuario (como administrador)
+exports.updateUser= catchAsyncErrors (async(req, res, next)=>{
+    const nuevaData={
+        nombre: req.body.nombre,
+        email: req.body.email, 
+        role: req.body.rol
+    }
+
+    const user= await User.findByIdAndUpdate(req.params.id, nuevaData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
+
+//Eliminar usuario (admin)
+exports.deleteUser= catchAsyncErrors (async (req, res, next)=>{
+    const user = await User.findById(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`Usuario con id: ${req.params.id} 
+        no se encuentra en nuestra base de datos`))
+    }
+
+    await user.remove();
+
+    res.status(200).json({
+        success:true,
+        message:"Usuario eliminado correctamente"
+    })
+})
+
+
+
+
+
