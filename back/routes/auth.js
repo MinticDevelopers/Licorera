@@ -21,8 +21,8 @@ router.route('/logout').get(isAuthenticatedUser, logOut)
 router.route('/forgotPassword').post(forgotPassword)
 router.route('/resetPassword/:token').post(resetPassword)
 router.route('/usuarioLogueado').get(isAuthenticatedUser ,getUserProfile)
-router.route('/usuarioUpdatePassword').put(isAuthenticatedUser, updatePassword)
-router.route('/usuarioUpdateProfile').put(isAuthenticatedUser,updateProfile)
+router.route('/user/updatePassword').put(isAuthenticatedUser, updatePassword)
+router.route('/user/updateProfile').put(isAuthenticatedUser,updateProfile)
 
 //rutas de administrador
 router.route('/admin/viewUsers').get(isAuthenticatedUser, authorizeRoles("admin"), getAllUsers)
