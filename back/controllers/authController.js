@@ -4,6 +4,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors")
 const tokenEnviado = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail")
 const crypto = require("crypto")
+const cloudinary = require("cloudinary")
 
 
 //Registrar un nuevo usuario /api/usuario/registro
@@ -11,16 +12,21 @@ const crypto = require("crypto")
 exports.registroUsuario = catchAsyncErrors(async (req, res, next) => {
     const { nombre, email, password } = req.body;
 
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 240,
+        crop: "scale"
+    })
+
     const user = await User.create({
         nombre,
         email,
         password,
         avatar: {
-            public_id: "5ac69e04c061f0.400875961522966020788",
-            url: "https://img2.freepng.es/20180405/acq/kisspng-male-avatar-user-profile-clip-art-profile-5ac69e04c061f0.400875961522966020788.jpg"
+            public_id: result.public_id,
+            url: result.secure_url
         }
     })
-
     tokenEnviado(user, 201, res)
 
 })
@@ -161,9 +167,9 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 })
 
 //Update perfil de usuario (logueado)
-exports.updateProfile= catchAsyncErrors(async(req,res,next)=>{
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     //Actualizar el email por user a decisiòn de cada uno
-    const newUserData ={
+    const newUserData = {
         nombre: req.body.nombre,
         email: req.body.email
     }
@@ -171,13 +177,13 @@ exports.updateProfile= catchAsyncErrors(async(req,res,next)=>{
     //update Avatar: pendiente
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-        new:true,
-        runValidators:true,
+        new: true,
+        runValidators: true,
         useFindAndModify: false
     })
 
     res.status(200).json({
-        success:true,
+        success: true,
         user
     })
 })
@@ -186,20 +192,20 @@ exports.updateProfile= catchAsyncErrors(async(req,res,next)=>{
 //Servicios controladores Administradores
 
 //Ver los usuarios registrados
-exports.getAllUsers = catchAsyncErrors(async(req, res, next)=>{
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
 
     res.status(200).json({
-        success:true,
+        success: true,
         users
     })
 })
 
 //Ver el detalle de 1 usuario
-exports.getUserDetails= catchAsyncErrors(async(req, res, next)=>{
-    const user= await User.findById(req.params.id);
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
 
-    if (!user){
+    if (!user) {
         return next(new ErrorHandler(`No se ha encontrado un usuario registrado con el id: ${req.params.id}`))
     }
 
@@ -210,30 +216,30 @@ exports.getUserDetails= catchAsyncErrors(async(req, res, next)=>{
 })
 
 //Actualizar perfil de usuario (como administrador)
-exports.updateUser= catchAsyncErrors (async(req, res, next)=>{
-    const nuevaData={
+exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+    const nuevaData = {
         nombre: req.body.nombre,
-        email: req.body.email, 
+        email: req.body.email,
         role: req.body.rol
     }
 
-    const user= await User.findByIdAndUpdate(req.params.id, nuevaData, {
+    const user = await User.findByIdAndUpdate(req.params.id, nuevaData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
     })
 
     res.status(200).json({
-        success:true,
+        success: true,
         user
     })
 })
 
 //Eliminar usuario (admin)
-exports.deleteUser= catchAsyncErrors (async (req, res, next)=>{
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
-    if(!user){
+    if (!user) {
         return next(new ErrorHandler(`Usuario con id: ${req.params.id} 
         no se encuentra en nuestra base de datos`))
     }
@@ -241,8 +247,8 @@ exports.deleteUser= catchAsyncErrors (async (req, res, next)=>{
     await user.remove();
 
     res.status(200).json({
-        success:true,
-        message:"Usuario eliminado correctamente"
+        success: true,
+        message: "Usuario eliminado correctamente"
     })
 })
 

@@ -10,6 +10,8 @@ import { Dashboard } from './components/admin/Dashboard';
 import { ProductsList } from './components/admin/ProductList';
 import NewProduct from './components/admin/newProduct';
 import Cart from './components/cart/Cart';
+import { Login } from './components/User/Login';
+import { Register } from './components/User/Register';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
             <Route path="/nuevoProducto" element={<NewProduct />} />
             <Route path="/search/:keyword" element={<Home/>}></Route>
             <Route path="/carrito" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register/>} />
           </Routes>
         </div>
         <Footer />
