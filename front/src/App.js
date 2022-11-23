@@ -16,17 +16,17 @@ import { loadUser } from './actions/userActions';
 import store from "./store"
 import { Profile } from './components/User/Profile';
 import ProtectedRoute from './routes/ProtectedRoute';
-/*
-import { UpdateProfile} from "./components/user/UpdateProfile"
-import { UpdatePassword } from './components/user/UpdatePassword';
-import { ForgotPassword } from "./components/user/ForgotPassword"
-import { NewPassword } from './components/user/NewPassword';
-*/
+import { UpdateProfile } from './components/User/UpdateProfile';
+import { UpdatePassword } from './components/User/UpdatePassword';
+import { ForgotPassword } from "./components/User/ForgotPassword"
+import { NewPassword } from './components/User/NewPassword';
+
+
 function App() {
-  useEffect(()=>{
+  useEffect(() => {
     store.dispatch(loadUser())
-   },[])
- 
+  }, [])
+
   return (
     <Router>
       <div className="App">
@@ -38,16 +38,19 @@ function App() {
             <Route path="/producto/:id" element={<ProductDetails />} />
             <Route path='/listadoProductos' element={<ProductsList />} />
             <Route path="/nuevoProducto" element={<NewProduct />} />
-            <Route path="/search/:keyword" element={<Home/>}></Route>
+            <Route path="/search/:keyword" element={<Home />}></Route>
             <Route path="/carrito" element={<Cart />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register/>} />
-            <Route path="/usuarioLogueado" element={<Profile/>} />
-
+            <Route path="/register" element={<Register />} />
+            <Route path="/usuarioLogueado" element={<Profile />} />
+            <Route path="/user/updateProfile" element={<UpdateProfile />} />
+            <Route path="/password/update" element={<UpdatePassword />} />
+            <Route path="/password/forgot" element={<ForgotPassword />}/>
+            <Route path="/resetPassword/:token" element={<NewPassword />}/>
 
             {/*Rutas protegidas*/}
-            <Route path='/dashboard' element={<ProtectedRoute isAdmin={true}> <Dashboard/> </ProtectedRoute>} />
-            
+            <Route path='/dashboard' element={<ProtectedRoute isAdmin={true}> <Dashboard /> </ProtectedRoute>} />
+
           </Routes>
         </div>
         <Footer />

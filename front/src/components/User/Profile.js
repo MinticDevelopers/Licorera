@@ -19,7 +19,7 @@ export const Profile = () => {
                             <figure className='avatar avatar-profile'>
                                 <img className="rounded-circle img-fluid" src={user.avatar.url} alt={user.nombre} />
                             </figure>
-                            <Link to="/user/updatePassword" id="edit_profile" className="btn btn-primary btn-block my-5">
+                            <Link to="/user/updateProfile" id="edit_profile" className="btn btn-primary btn-block my-5">
                                 Editar Perfil
                             </Link>
                         </div>
