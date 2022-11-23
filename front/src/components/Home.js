@@ -1,23 +1,36 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import MetaData from './layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../actions/productActions'
-import { Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
+import Pagination from 'react-js-pagination'
+
 
 
 export const Home = () => {
-
-    const { loading, productos, error } = useSelector(state => state.products)
+    
+    const [currentPage, setCurrentPage] = useState(1)
+    const { loading, productos, error, resPerPage, cantidad } = useSelector(state => state.products)
     const alert = useAlert();
+
+    const params = useParams();
+    const keyword = params.keyword
+    
+
 
     const dispatch = useDispatch();
     useEffect(() => {
         if (error) {
             return alert.error(error)
         }
-        dispatch(getProducts());
-    }, [dispatch]);
+
+        dispatch(getProducts(currentPage, keyword));
+    }, [dispatch, alert, error, currentPage, keyword])
+
+    function setCurrentPageNo(pageNumber){
+        setCurrentPage(pageNumber)
+    }
 
 
     return (
@@ -27,7 +40,7 @@ export const Home = () => {
                 <Fragment>
                     <MetaData title="Novedades"></MetaData>
 
-                    <h1 className='mt-4' id="encabezado_productos">Últimos Productos</h1>
+                    <h2 className='mt-4' id="encabezado_productos">Últimos Productos</h2>
 
                     <section id="productos" className='container mt-5'>
                         <div className='row'>
@@ -57,6 +70,21 @@ export const Home = () => {
 
                         </div>
                     </section>
+
+                    <div className='d-flex justify-content-center mt-5'>
+                        <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={resPerPage}
+                        totalItemsCount={cantidad}
+                        onChange={setCurrentPageNo}
+                        nextPageText={'Siguiente'}
+                        prevPageText={'Anterior'}
+                        firstPageText={'<'}
+                        lastPageText={'>'}
+                        itemClass='page-item'
+                        linkClass='page-link'
+                        />
+                    </div>
 
                 </Fragment>
 
