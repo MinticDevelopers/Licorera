@@ -1,67 +1,40 @@
-import React, { Fragment, useState } from 'react'
+
+import React, { Fragment } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { addItemToCart, removeItemFromCart } from '../../actions/carActions'
 import MetaData from '../layout/MetaData'
 
 
 const Cart = () => {
-    const [quantity, setQuantity] = useState(1)
+    const dispatch = useDispatch();
+    const { cartItems } = useSelector(state => state.cart)
 
-    const increaseQty = () => {
-        const contador = document.querySelector('.count')
-        const qty = contador.valueAsNumber + 1;
-        setQuantity(qty)
+    const increaseQty = (id, quantity, inventario) => {
+        const newQty = quantity + 1;
+        if (newQty > inventario) return;
+        dispatch(addItemToCart(id, newQty))
     }
 
-    const decreaseQty = () => {
-        const contador = document.querySelector('.count')
-
-        const qty = contador.valueAsNumber - 1;
-        setQuantity(qty)
+    const decreaseQty = (id, quantity) => {
+        const newQty = quantity - 1;
+        if (newQty <= 0) return;
+        dispatch(addItemToCart(id, newQty))
     }
 
-    //Json de ejemplo
-    let cartItems = [
-        {
-            "_id": "6365ca74866ce464b313cbeb",
-            "nombre": "Whisky Buchanans Deluxe 12 Años Blended",
-            "precio": 153000,
-            "imagen": "./images/imagesProducts/Buchanans_Deluxe_Blended.png",
-            "inventario": 100,
-        },
-        {
-            "_id": "6365cb1e866ce464b313cbee",
-            "nombre": "Whisky Old Parr 12 Años Blended",
-            "precio": 138000,
-            "imagen": "./images/imagesProducts/Old_Parr_12.png",
-            "inventario": 100,
-        },
-        {
-            "_id": "6365cba2866ce464b313cbf4",
-            "nombre": "Whisky Johnnie Walker Black Label Blended",
-            "precio": 130100,
-            "imagen": "./images/imagesProducts/Johnnie_Walker_Black.png",
-            "inventario": 100,
-        },
-        {
-            "_id": "6365cc2a866ce464b313cbf7",
-            "nombre": "Whisky Chivas Regal 18 Años",
-            "precio": 250990,
-            "imagen": "./images/imagesProducts/Chivas_Regal_18.png",
-            "inventario": 100,
-        }
-    ]
-
-    cartItems = Array.from(cartItems);
+    const removeCartItemHandler = (id) => {
+        dispatch(removeItemFromCart(id))
+    }
 
     return (
         <Fragment>
-            <MetaData title={'Your Cart'} />
+            <MetaData title={'Mi carrito'} />
 
 
             {cartItems.length === 0 ? <h2 className="mt-5">Su carrito esta vacio</h2> : (
                 <Fragment>
 
-                    <h4 className="mt-5">Su Carrito: <b>{cartItems.length} items</b></h4>
+                    <h3 className="mt-5">Su Carrito: <b>{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} items</b></h3>
 
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-lg-8">
@@ -77,7 +50,7 @@ const Cart = () => {
                                             </div>
 
                                             <div className="col-5 col-lg-3">
-                                                <Link to={`/producto/${item._id}`}>{item.nombre}</Link>
+                                                <Link to={`/producto/${item.product}`}>{item.nombre}</Link>
                                             </div>
 
 
@@ -87,16 +60,16 @@ const Cart = () => {
 
                                             <div className="col-4 col-lg-3 mt-4 mt-lg-0">
                                                 <div className="stockCounter d-inline">
-                                                    <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
+                                                    <span className="btn btn-danger minus" onClick={() => decreaseQty(item.product, item.quantity)}>-</span>
 
-                                                    <input type="number" className="form-control count d-inline" value={quantity} readOnly />
+                                                    <input type="number" className="form-control count d-inline" value={item.quantity} readOnly />
 
-                                                    <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
+                                                    <span className="btn btn-primary plus" onClick={() => increaseQty(item.product, item.quantity, item.inventario)}>+</span>
                                                 </div>
                                             </div>
 
                                             <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                                <i id="delete_cart_item" className="fa fa-trash btn btn-danger" ></i>
+                                                <i id="delete_cart_item" className="fa fa-trash btn btn-danger" onClick={() => removeCartItemHandler(item.product)}></i>
                                             </div>
 
                                         </div>
@@ -111,8 +84,8 @@ const Cart = () => {
                             <div id="order_summary">
                                 <h4>Total de la Compra</h4>
                                 <hr />
-                                <p>Subtotal:  <span className="order-summary-values">$350.000</span></p>
-                                <p>Est. total: <span className="order-summary-values">$380.000</span></p>
+                                <p>Productos:  <span className="order-summary-values">{cartItems.reduce((acc, item) => (acc + Number(item.quantity)), 0)} (Unidades)</span></p>
+                                <p>Est. total: <span className="order-summary-values">${cartItems.reduce((acc, item) => acc + (item.quantity * item.precio), 0).toFixed(2)}</span></p>
 
                                 <hr />
                                 <button id="checkout_btn" className="btn btn-primary btn-block">Comprar!</button>

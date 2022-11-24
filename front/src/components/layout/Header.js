@@ -4,10 +4,11 @@ import { Link } from "react-router-dom"
 import { Search } from './Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
-import { logout } from "../../actions/userActions"
+import { logout} from "../../actions/userActions"
 
 
 const Header = () => {
+    const {cartItems} = useSelector(state=>state.cart)
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Header = () => {
 
                     {/*carrito de compras */}
                     <Link to="/carrito"><i class="fa fa-shopping-cart fa-2x text-white ml-4" aria-hidden="false"></i>
-                        <span className="ml-1 mr-4" id="cart_count">2</span></Link>
+                        <span className="ml-1 mr-4" id="cart_count">{cartItems.length}</span></Link>
 
                     {user ? (
 
