@@ -5,7 +5,7 @@ import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../actions/productActions'
+import { getAdminProducts } from '../../actions/productActions'
 import { Link } from "react-router-dom"
 
 export const ProductsList = () => {
@@ -18,7 +18,7 @@ export const ProductsList = () => {
             return alert.error(error)
         }
 
-        dispatch(getProducts());
+        dispatch(getAdminProducts());
     }, [dispatch, alert, error])
 
     const setProducts = () => {

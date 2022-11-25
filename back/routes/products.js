@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 //Se importa la respuesta Json desde el controlador
-const { getProducts, newProduct, getProductById, updateProduct, deleteProduct, createProductReview, getProductReviews, deleteReview } = require("../controllers/productsController");
+const { getProducts, newProduct, getProductById, updateProduct, deleteProduct, createProductReview, getProductReviews, deleteReview, getAdminProducts } = require("../controllers/productsController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
 //Se establece en que ruta se ven los productos (getProducts).
@@ -20,6 +20,7 @@ router.route('/producto/:id').put(isAuthenticatedUser, authorizeRoles("admin"),u
 //Se establece la ruta para eliminar un producto
 router.route('/producto/:id').delete(isAuthenticatedUser, authorizeRoles("admin"),deleteProduct);
 
+router.route('/admin/productos').get(isAuthenticatedUser, authorizeRoles("admin"),getAdminProducts);
 
 // Rutas review
 router.route('/updateReview').put(isAuthenticatedUser, createProductReview)
