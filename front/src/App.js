@@ -8,7 +8,7 @@ import { ProductDetails } from './components/products/ProductDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Dashboard } from './components/admin/Dashboard';
 import { ProductsList } from './components/admin/ProductList';
-import NewProduct from './components/admin/newProduct';
+import NewProduct from './components/admin/NewProduct';
 import Cart from './components/cart/Cart';
 import { Login } from './components/User/Login';
 import { Register } from './components/User/Register';

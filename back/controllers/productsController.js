@@ -3,7 +3,7 @@ const producto = require("../models/productos");//importación del schema produc
 const APIFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const fetch = (url) => import('node-fetch').then(({ default: fetch }) => fetch(url)); //Usurpación del require
-
+const cloudinary = require("cloudinary")
 
 //Ver la lista de productos
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
@@ -49,6 +49,30 @@ exports.getProductById = catchAsyncErrors(async (req, res, next) => {
 
 //Crear nuevo producto /api/producto/nuevo
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
+
+    let imagen = []
+
+    if (typeof req.body.imagen === "string") {
+        imagen.push(req.body.imagen)
+    } else {
+        imagen = req.body.imagen
+    }
+
+    let imagenLink = []
+
+    for (let i = 0; i < imagen.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(imagen[i],{
+            folder:"products"
+        })
+        imagenLink.push({
+            public_id: result.public_id,
+            url: result.secure_url
+        })
+    }
+
+    req.body.imagen=imagenLink
+   
+
     req.body.user = req.user.id;
     const product = await producto.create(req.body);
 
@@ -183,9 +207,9 @@ exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
 //Ver la lista de productos
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
-   const products = await producto.find()
+    const products = await producto.find()
     res.status(200).json({
-       
+
         products
     })
 
