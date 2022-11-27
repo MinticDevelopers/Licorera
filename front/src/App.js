@@ -20,6 +20,7 @@ import { UpdateProfile } from './components/User/UpdateProfile';
 import { UpdatePassword } from './components/User/UpdatePassword';
 import { ForgotPassword } from "./components/User/ForgotPassword"
 import { NewPassword } from './components/User/NewPassword';
+import { UpdateProduct } from './components/admin/UpdateProduct';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
 
             {/*Rutas protegidas*/}
             <Route path='/dashboard' element={<ProtectedRoute isAdmin={true}> <Dashboard /> </ProtectedRoute>} />
+            <Route path='/updateProduct/id' element={<ProtectedRoute isAdmin={true}> <UpdateProduct /> </ProtectedRoute>} />
 
           </Routes>
         </div>

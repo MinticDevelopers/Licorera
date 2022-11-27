@@ -13,7 +13,9 @@ const reducer= combineReducers ({
     user: userReducer,
     forgotPassword: forgotPasswordReducer,
     cart : cartReducer,
-    newProduct: newProductReducer
+    newProduct: newProductReducer,
+    product : productsReducer
+
 })
 
 let initialState = {}

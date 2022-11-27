@@ -90,7 +90,37 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler("Producto no encontrado", 404))
     }
+    
+    let imagen=[]
 
+    if (typeof req.body.imagen=="string"){
+        imagen.push(req.body.imagen)
+    } else{
+        imagen= req.body.imagen
+    }
+
+    if (imagen!== undefined){
+        //elimina imagenes asociadas con el producto 
+        for(let i=0; i<product.imagen.length; i++){
+            const result = await cloudinary.v2.uploader.destroy(imagen[i], {
+                folder :"products"
+            });
+            imageLinks.push({
+                public_id: result.public_id,
+                ur: result.secure_url
+            })
+        }
+
+        let imageLinks=[]
+        for (let i=0; i<imagen.length; i++){
+            const result = await cloudinary.v2.uploader.upload(product.images[i].public_id)
+        }
+
+        req.body.imagen=imageLinks
+
+    }
+
+    
     //Si el producto ya existia se actualizan los datos
     product = await producto.findByIdAndUpdate(req.params.id, req.body, {
         //Se validan los atributos nuevos
