@@ -136,7 +136,7 @@ export const updateProduct = (id,productData) => async (dispatch)=>{
 
         const config = {
             headers:{
-                "Conten-Type": "aplication/json"
+                "Conten-Type": "application/json"
             }
         }
         const {data}= await axios.put(`/api/producto/${id}`, productData, config)

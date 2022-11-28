@@ -154,7 +154,7 @@ export const productReducer = (state = {}, action) => {
             return {
                 ...state,
                 loading: false,
-                isDelted: action.payload
+                isDeleted: action.payload
             }
 
         case UPDATE_PRODUCT_SUCCESS:

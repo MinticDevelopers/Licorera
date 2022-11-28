@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
 import { MDBDataTable } from 'mdbreact'
-
 import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
 import { useAlert } from 'react-alert'
@@ -15,14 +14,14 @@ export const ProductsList = () => {
 
     const dispatch = useDispatch();
 
-    const deleteProductHandler= (id =>{
+    const deleteProductHandler= (id) =>{
         const response = window.confirm ("Confirma la eliminacion de este producto?")
         if (response){
             dispatch (deleteProduct(id))
             alert.success("Producto eliminado satisfactoriamente")
             window.location.reload(false)
         }
-    })
+    }
 
     useEffect(() => {
         if (error) {

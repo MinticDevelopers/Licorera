@@ -51,7 +51,7 @@ function App() {
 
             {/*Rutas protegidas*/}
             <Route path='/dashboard' element={<ProtectedRoute isAdmin={true}> <Dashboard /> </ProtectedRoute>} />
-            <Route path='/updateProduct/id' element={<ProtectedRoute isAdmin={true}> <UpdateProduct /> </ProtectedRoute>} />
+            <Route path='/updateProduct/:id' element={<ProtectedRoute isAdmin={true}> <UpdateProduct /> </ProtectedRoute>} />
 
           </Routes>
         </div>
